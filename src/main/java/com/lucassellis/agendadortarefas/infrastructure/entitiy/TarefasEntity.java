@@ -12,14 +12,15 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document("tarefa")
+@Document(collection = "tarefa")
+
 public class TarefasEntity {
 
     @Id
     private String id;
     private String nomeTarefa;
     private String descricao;
-    private LocalDateTime datacriacao;
+    private LocalDateTime dataCriacao;
     private LocalDateTime dataEvento;
     private String emailUsuario;
     private LocalDateTime dataAlteracao;
