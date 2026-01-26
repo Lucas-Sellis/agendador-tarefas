@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl   {
 
-// nao entendi nada disso nao sei pra que serve
 @Autowired
 private UsuarioClient client;
 
