@@ -1,8 +1,9 @@
-package com.lucassellis.bff_agendadordetarefas.infrastructure.exceptions;
+package com.lucassellis.agendadortarefas.infrastructure.exceptions;
 
-import javax.naming.AuthenticationException;
 
-public class UnauthorizedException extends RuntimeException {
+import org.springframework.security.core.AuthenticationException;
+
+public class UnauthorizedException extends AuthenticationException {
 
     public UnauthorizedException(String mensagem) {
         super(mensagem);

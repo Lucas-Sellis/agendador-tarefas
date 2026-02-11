@@ -1,9 +1,13 @@
-FROM eclipse-temurin:21-jdk-alpine
-
+FROM gradle:8-jdk21 AS build
 WORKDIR /app
 
-COPY target/bff-agendadordetarefas-0.0.1-SNAPSHOT.jar /app/bff-agendadordetarefas.jar
+COPY . .
+RUN gradle build --no-daemon
 
-EXPOSE 8083
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
 
-CMD ["java", "-jar", "/app/bff-agendadordetarefas.jar"]
+COPY --from=build /app/build/libs/*.jar agendador-tarefas.jar
+
+EXPOSE 8081
+CMD ["java", "-jar", "agendador-tarefas.jar"]

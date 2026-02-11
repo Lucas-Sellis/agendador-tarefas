@@ -1,8 +1,6 @@
-package com.example.usuario.controller;
+package com.lucassellis.agendadortarefas.infrastructure.exceptions;
 
-import com.example.usuario.infrastructure.exceptions.ConflictException;
-import com.example.usuario.infrastructure.exceptions.ResourceNotFoundException;
-import com.example.usuario.infrastructure.exceptions.UnauthorizedException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -12,20 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex){
+    public ResponseEntity<String> handleResourceNotFoundException(ResourceNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(ConflictException.class)
-    public ResponseEntity<String> handleConflictException(ConflictException ex){
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
-    }
-
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<String> handleUnauthorizedtException(UnauthorizedException ex){
+    public ResponseEntity<String> handleUnauthorizedException(UnauthorizedException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
-
 
 
 }
