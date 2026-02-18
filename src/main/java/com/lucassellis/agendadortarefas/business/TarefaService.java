@@ -1,6 +1,7 @@
 package com.lucassellis.agendadortarefas.business;
 
-import com.lucassellis.agendadortarefas.business.dto.TarefasDTO;
+import com.lucassellis.agendadortarefas.business.dto.TarefasDTORecord;
+import com.lucassellis.agendadortarefas.business.dto.TarefasDTORecord;
 import com.lucassellis.agendadortarefas.business.mapper.TarefaUpdateConverter;
 import com.lucassellis.agendadortarefas.business.mapper.TarefasConverter;
 import com.lucassellis.agendadortarefas.infrastructure.entitiy.TarefasEntity;
@@ -19,17 +20,16 @@ import java.util.List;
 
 public class TarefaService {
 
-    private final TarefasRepository tarefasRepository;
-    private final TarefasConverter tarefaConverter;
-    private final JwtUtil jwtUtil;
-    private final TarefaUpdateConverter tarefaUpdateConverter;
+     final TarefasRepository tarefasRepository;
+     final TarefasConverter tarefaConverter;
+     final JwtUtil jwtUtil;
+     final TarefaUpdateConverter tarefaUpdateConverter;
 
-    public TarefasDTO gravarTarefa (String token, TarefasDTO dto){
+    public TarefasDTORecord gravarTarefa (String token, TarefasDTORecord dto){
         String email = jwtUtil.extractUsername(token.substring(7));
-        dto.setDataCriacao(LocalDateTime.now());
-        dto.setStatusNotificacaoEnum(StatusNotificacaoEnum.PENDENTE);
-        dto.setEmailUsuario(email);
-        TarefasEntity entity = tarefaConverter.paraTarefaEntity(dto);
+        TarefasDTORecord dtoFinal = new TarefasDTORecord(null, dto.nomeTarefa(),
+                dto.descricao(),LocalDateTime.now(),dto.dataEvento(), email,null,StatusNotificacaoEnum.PENDENTE);
+        TarefasEntity entity = tarefaConverter.paraTarefaEntity(dtoFinal);
 
         return  tarefaConverter.paraTarefaDTO(
                 tarefasRepository.save(entity));
@@ -44,17 +44,17 @@ public class TarefaService {
 
     }
 
-    public List<TarefasDTO> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal){
+    public List<TarefasDTORecord> buscaTarefasAgendadasPorPeriodo(LocalDateTime dataInicial, LocalDateTime dataFinal){
 
-        return tarefaConverter.paraListaTarefasDTO(
+        return tarefaConverter.paraListaTarefasDTORecord(
                 tarefasRepository.findByDataEventoBetween(dataInicial, dataFinal));
     }
 
-   public List<TarefasDTO> buscaTarefasPorEmail(String token){
+   public List<TarefasDTORecord> buscaTarefasPorEmail(String token){
         String email = jwtUtil.extractUsername(token.substring(7));
         List<TarefasEntity>listaTarefas=tarefasRepository.findByEmailUsuario(email);
 
-        return tarefaConverter.paraListaTarefasDTO(listaTarefas);
+        return tarefaConverter.paraListaTarefasDTORecord(listaTarefas);
     }
 
     public void deletaTarefaPorId(String id){
@@ -66,7 +66,7 @@ public class TarefaService {
         }
     }
 
-    public TarefasDTO alteraStatus(StatusNotificacaoEnum status, String id){
+    public TarefasDTORecord alteraStatus(StatusNotificacaoEnum status, String id){
 
         try {
             // 1. Busca a entidade ou lança a exceção diretamente
@@ -82,7 +82,7 @@ public class TarefaService {
 
     }
 
-    public TarefasDTO updateTarefas(TarefasDTO dto, String id){
+    public TarefasDTORecord updateTarefas(TarefasDTORecord dto, String id){
         try {
             // 1. Busca a entidade ou lança a exceção diretamente
             TarefasEntity entity = tarefasRepository.findById(id).
