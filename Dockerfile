@@ -1,0 +1,13 @@
+FROM gradle:8-jdk21 AS build
+WORKDIR /app
+
+COPY . .
+RUN gradle build --no-daemon
+
+FROM eclipse-temurin:21-jdk-alpine
+WORKDIR /app
+
+COPY --from=build /app/build/libs/*.jar agendador-tarefas.jar
+
+EXPOSE 8081
+CMD ["java", "-jar", "agendador-tarefas.jar"]

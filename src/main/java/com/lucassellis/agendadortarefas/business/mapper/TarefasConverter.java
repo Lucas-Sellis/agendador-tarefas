@@ -1,6 +1,6 @@
 package com.lucassellis.agendadortarefas.business.mapper;
 
-import com.lucassellis.agendadortarefas.business.dto.TarefasDTO;
+import com.lucassellis.agendadortarefas.business.dto.TarefasDTORecord;
 import com.lucassellis.agendadortarefas.infrastructure.entitiy.TarefasEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,13 +16,13 @@ public interface TarefasConverter {
     @Mapping(source = "dataEvento", target ="dataEvento")
     @Mapping(source = "dataCriacao", target ="dataCriacao")
 
-    TarefasEntity paraTarefaEntity(TarefasDTO dto);
+    TarefasEntity paraTarefaEntity(TarefasDTORecord dto);
 
-    TarefasDTO paraTarefaDTO(TarefasEntity entity);
+    TarefasDTORecord paraTarefaDTO(TarefasEntity entity);
 
-    List<TarefasEntity> paraListaTarefasEntity(List<TarefasDTO> dtos);
+    List<TarefasEntity> paraListaTarefasEntity(List<TarefasDTORecord> dtos);
 
-    List<TarefasDTO> paraListaTarefasDTO(List<TarefasEntity> entities);
+    List<TarefasDTORecord> paraListaTarefasDTORecord(List<TarefasEntity> entities);
 }
 
 
