@@ -1,7 +1,6 @@
 package com.lucassellis.agendadortarefas.business;
 
 import com.lucassellis.agendadortarefas.business.dto.TarefasDTORecord;
-import com.lucassellis.agendadortarefas.business.dto.TarefasDTORecord;
 import com.lucassellis.agendadortarefas.business.mapper.TarefaUpdateConverter;
 import com.lucassellis.agendadortarefas.business.mapper.TarefasConverter;
 import com.lucassellis.agendadortarefas.infrastructure.entitiy.TarefasEntity;

@@ -2,8 +2,6 @@ package com.lucassellis.agendadortarefas.business.dto;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
